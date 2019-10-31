@@ -1,5 +1,6 @@
 import React, { Component, createRef } from 'react'
 
+// see: https://engineering.universe.com/building-a-google-map-in-react-b103b4ee97f1
 class GoogleMap extends Component {
     googleMapRef = React.createRef()
 
