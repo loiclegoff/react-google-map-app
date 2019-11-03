@@ -1,14 +1,14 @@
 
 import * as React from 'react'
-import Map from "./map/Map"
-// routing, etc.
+import SimpleMap from "../map/SimpleMap"
 
+// TODO: add rooting
 export class App extends React.Component<{}> {
     public render() {
         return (
             <div>
                 <title>Map Demo</title>
-                <Map/>
+                <SimpleMap/>
             </div>
         )
     }
