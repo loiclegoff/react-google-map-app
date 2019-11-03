@@ -1,43 +1,42 @@
-import React, { Component, createRef } from 'react'
+import React, { Component, FunctionComponent } from 'react';
+import GoogleMapReact from 'google-map-react';
 
-// see: https://engineering.universe.com/building-a-google-map-in-react-b103b4ee97f1
-class GoogleMap extends Component {
-    googleMapRef = React.createRef()
+const AnyReactComponent: FunctionComponent<{lat: number, lng: number, text: string}> = ({ text }) => <div>{text}</div>;
 
-    componentDidMount() {
-        const googleMapScript = document.createElement('script')
-        googleScript.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_API_KEY}&libraries=places`
-        window.document.body.appendChild(googleScript)
-
-        googleScript.addEventListener('load', {
-            this.googleMap = this.createGoogleMap()
-      this.marker = this.createMarker()
-        })
-    }
-
-    createGoogleMap = () =>
-        new window.google.maps.Map(this.googleMapRef.current, {
-            zoom: 16,
-            center: {
-                lat: 43.642567,
-                lng: -79.387054,
-            },
-            disableDefaultUI: true,
-        })
-
-    createMarker = () =>
-        new window.google.maps.Marker({
-            position: { lat: 43.642567, lng: -79.387054 },
-            map: this.googleMap,
-        })
-
-    render() {
-        return (
-            <div
-                id="google-map"
-                ref={this.googleMapRef}
-                style={{ width: '400px', height: '300px' }}
-            />
-        )
-    }
+interface SimpleMapProps {
+    center: {
+        lat: number,
+        lng: number
+    }, zoom: number
 }
+
+class SimpleMap extends Component<SimpleMapProps> {
+  static defaultProps = {
+    center: {
+      lat: 59.95,
+      lng: 30.33
+    },
+    zoom: 11
+  };
+
+  render() {
+    return (
+      // Important! Always set the container height explicitly
+      <div style={{ height: '100vh', width: '100%' }}>
+        <GoogleMapReact
+          bootstrapURLKeys={{ key: process.env.GOOGLE_MAP_KEY as string}}
+          defaultCenter={this.props.center}
+          defaultZoom={this.props.zoom}
+        >
+          <AnyReactComponent
+            lat={59.955413}
+            lng={30.337844}
+            text="My Marker"
+          />
+        </GoogleMapReact>
+      </div>
+    );
+  }
+}
+
+export default SimpleMap;
