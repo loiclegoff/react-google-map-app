@@ -31,7 +31,7 @@ class SimpleMap extends Component<SimpleMapProps, SimpleMapState> {
   }
 
   componentWillMount() {
-    Papa.parse("https://entourage-csv.s3.eu-west-1.amazonaws.com/production/entourages.csv", {
+    Papa.parse(process.env.PUBLIC_EVENTS_URL as string, {
       download: true,
       // delimiter: ",",
       // header: true,
