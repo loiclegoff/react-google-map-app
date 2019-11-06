@@ -1,6 +1,8 @@
 import React, { Component, FunctionComponent } from 'react';
 import GoogleMapReact from 'google-map-react';
 import Papa from "papaparse"
+import { Poi } from 'model';
+import { getPois } from 'api';
 
 const AnyReactComponent: FunctionComponent<{lat: number, lng: number, text: string}> = ({ text }) => <div>{text}</div>;
 
@@ -12,8 +14,11 @@ interface SimpleMapProps {
 }
 
 interface SimpleMapState {
-  hasErrors: boolean,
-  data: any[]
+  // hasErrors: boolean,
+  // data: any[],
+  pois: Poi[],
+  isLoading: boolean
+
 }
 
 class SimpleMap extends Component<SimpleMapProps, SimpleMapState> {
@@ -26,31 +31,30 @@ class SimpleMap extends Component<SimpleMapProps, SimpleMapState> {
   };
 
   state = {
-    hasErrors: false,
-    data: []
+    // hasErrors: false,
+    // data: []
+    pois: [],
+    isLoading: true
   }
 
-  componentWillMount() {
-    Papa.parse(process.env.PUBLIC_EVENTS_URL as string, {
-      download: true,
-      // delimiter: ",",
-      // header: true,
-      // error: () => this.setState({hasErrors: true}),
-      complete: this.updateData
-    })
-
+  componentDidMount() {
+    // Papa.parse(process.env.PUBLIC_EVENTS_URL as string, {
+    //   download: true,
+    //   // delimiter: ",",
+    //   // header: true,
+    //   // error: () => this.setState({hasErrors: true}),
+    //   complete: this.updateData
+    // })
+    getPois((state: SimpleMapState) => this.setState(state),48.849919799999995, 2.637041100000033, 8)
   }
 
-  updateData = (result: Papa.ParseResult) => {
-    if (result.errors.length){
-      this.setState({ hasErrors: true })
-      console.log(result.errors)
-    } else {
-      this.setState({data: result.data})
-    }
-  }
 
   render() {
+
+    const { pois, isLoading } = this.state;
+    if (isLoading) {
+      return <p>Loading ...</p>;
+    }
     return (
       // Important! Always set the container height explicitly
       <div style={{ height: '100vh', width: '100%' }}>
@@ -66,7 +70,7 @@ class SimpleMap extends Component<SimpleMapProps, SimpleMapState> {
           />
         </GoogleMapReact>
 
-        {JSON.stringify(this.state.data)}
+        {JSON.stringify(pois)}
       </div>
     );
   }
