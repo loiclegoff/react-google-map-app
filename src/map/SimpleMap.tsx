@@ -1,73 +1,81 @@
 import React, { Component, FunctionComponent } from 'react';
 import GoogleMapReact from 'google-map-react';
-import Papa from "papaparse"
-import { Poi } from 'model';
-import { getPois } from 'api';
+import { Poi } from '../model';
+import { getPois } from '../api';
 
-const AnyReactComponent: FunctionComponent<{lat: number, lng: number, text: string}> = ({ text }) => <div>{text}</div>;
+const AnyReactComponent: FunctionComponent<{
+  lat: number;
+  lng: number;
+  text: string;
+}> = ({ text }) => <div>{text}</div>;
 
 interface SimpleMapProps {
-    center: {
-        lat: number,
-        lng: number
-    }, zoom: number
+  center: {
+    lat: number;
+    lng: number;
+  };
+  zoom: number;
 }
 
 interface SimpleMapState {
-  // hasErrors: boolean,
-  // data: any[],
-  pois: Poi[],
-  isLoading: boolean
-
+  pois: Poi[];
+  isLoading: boolean;
 }
+
+const DEFAULT_LAT = 48.8660992;
+const DEFAULT_LNG = 2.3339008000000376;
 
 class SimpleMap extends Component<SimpleMapProps, SimpleMapState> {
   static defaultProps = {
     center: {
-      lat: 59.95,
-      lng: 30.33
+      lat: DEFAULT_LAT,
+      lng: DEFAULT_LNG,
     },
-    zoom: 11
+    zoom: 12,
   };
 
-  state = {
-    // hasErrors: false,
-    // data: []
+  state: SimpleMapState = {
     pois: [],
-    isLoading: true
-  }
+    isLoading: true,
+  };
+
+  updatePois = (pois: Poi[]) =>
+    this.setState({
+      isLoading: false,
+      pois: pois,
+    });
 
   componentDidMount() {
-    // Papa.parse(process.env.PUBLIC_EVENTS_URL as string, {
-    //   download: true,
-    //   // delimiter: ",",
-    //   // header: true,
-    //   // error: () => this.setState({hasErrors: true}),
-    //   complete: this.updateData
-    // })
-    getPois((state: SimpleMapState) => this.setState(state),48.849919799999995, 2.637041100000033, 8)
+    getPois(this.updatePois, DEFAULT_LAT, DEFAULT_LNG, 8);
   }
 
-
   render() {
-
     const { pois, isLoading } = this.state;
+
     if (isLoading) {
       return <p>Loading ...</p>;
     }
+
     return (
       // Important! Always set the container height explicitly
       <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: process.env.GOOGLE_MAP_KEY as string}}
+          bootstrapURLKeys={{ key: process.env.GOOGLE_MAP_KEY as string }}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
         >
           <AnyReactComponent
-            lat={59.955413}
-            lng={30.337844}
-            text="My Marker"
+            lat={DEFAULT_LAT}
+            lng={DEFAULT_LNG}
+            text="Hey! Loïc"
           />
+          {pois.map(poi => (
+            <AnyReactComponent
+              lat={poi.latitude}
+              lng={poi.longitude}
+              text="Hey! Loïc"
+            />
+          ))}
         </GoogleMapReact>
 
         {JSON.stringify(pois)}
