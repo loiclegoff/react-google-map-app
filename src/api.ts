@@ -8,7 +8,7 @@ enum Categories {
     SE_REINSERER = 7
 }
 
-const API = "https://api.entourage.social/api/v1"
+const API = process.env.ENTOURAGE_API as string
 
 export const getPois = (setState: (data: any) => void, latitude: number, longitude: number, distance: number, categories?: Categories[]) =>{
     fetch(`${API}/pois?latitude=${latitude}&longitude=${longitude}&distance=${distance}&category_ids=1,2,3,4,5,6,7`)
