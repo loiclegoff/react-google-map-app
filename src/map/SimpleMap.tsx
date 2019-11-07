@@ -64,11 +64,6 @@ class SimpleMap extends Component<SimpleMapProps, SimpleMapState> {
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
         >
-          <AnyReactComponent
-            lat={DEFAULT_LAT}
-            lng={DEFAULT_LNG}
-            text="Hey! Loïc"
-          />
           {pois.map(poi => (
             <AnyReactComponent
               lat={poi.latitude}

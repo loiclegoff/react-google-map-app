@@ -4,9 +4,11 @@
   "license": "MIT",
   "author": "LE GOFF",
   "dependencies": {
+    "@google/maps": "^1.0.2",
     "@types/papaparse": "^5.0.1",
     "fetch": "^1.1.0",
     "google-map-react": "^1.1.5",
+    "map": "^1.0.1",
     "papaparse": "^5.1.0",
     "react": "^16.11.0",
     "react-app-polyfill": "^1.0.0",
@@ -25,6 +27,7 @@
   },
   "devDependencies": {
     "@types/google-map-react": "^1.1.1",
+    "@types/googlemaps": "^3.38.0",
     "@types/node": "^12.12.5",
     "@types/react": "^16.9.11",
     "@types/react-dom": "^16.9.3",

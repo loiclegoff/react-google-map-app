@@ -1,3 +1,5 @@
+import { Poi } from './model';
+
 // Not use actually
 
 enum Categories {
@@ -15,7 +17,7 @@ const API = process.env.ENTOURAGE_API as string;
 export interface GetPoisResponse {}
 
 export const getPois = (
-  callback: (pois: any) => void,
+  callback: (pois: Poi[]) => void,
   latitude: number,
   longitude: number,
   distance: number,

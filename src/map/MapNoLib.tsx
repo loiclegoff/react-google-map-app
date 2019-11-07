@@ -1,43 +1,31 @@
-// import React, { Component, createRef } from 'react'
+// import React from 'react';
 
-// // see: https://engineering.universe.com/building-a-google-map-in-react-b103b4ee97f1
-// class GoogleMap extends Component {
-//     googleMapRef = React.createRef()
+// export class AppComponent implements React.Component<{}> {
+//     mapElement: React.RefObject<unknown>;
+//     map: google.maps.Map;
+
+//     constructor() {
+//         this.mapElement = React.createRef()
+//         this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+//     }
 
 //     componentDidMount() {
-//         const googleMapScript = document.createElement('script')
-//         googleScript.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_API_KEY}&libraries=places`
-//         window.document.body.appendChild(googleScript)
-
-//         googleScript.addEventListener('load', {
-//             this.googleMap = this.createGoogleMap()
-//       this.marker = this.createMarker()
-//         })
+//         this.initializeMap();
 //     }
 
-//     createGoogleMap = () =>
-//         new window.google.maps.Map(this.googleMapRef.current, {
+//     initializeMap() {
+//         const lngLat = new google.maps.LatLng(6.5874964, 3.9886097);
+//         const mapOptions: google.maps.MapOptions = {
+//             center: lngLat,
 //             zoom: 16,
-//             center: {
-//                 lat: 43.642567,
-//                 lng: -79.387054,
-//             },
-//             disableDefaultUI: true,
-//         })
-
-//     createMarker = () =>
-//         new window.google.maps.Marker({
-//             position: { lat: 43.642567, lng: -79.387054 },
-//             map: this.googleMap,
-//         })
+//             fullscreenControl: false,
+//             mapTypeControl: false,
+//             streetViewControl: false
+//         };
+        
+//     }
 
 //     render() {
-//         return (
-//             <div
-//                 id="google-map"
-//                 ref={this.googleMapRef}
-//                 style={{ width: '400px', height: '300px' }}
-//             />
-//         )
+//         return <></>
 //     }
-// }
+//  }
