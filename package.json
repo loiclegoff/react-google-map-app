@@ -9,7 +9,7 @@
     "fetch": "^1.1.0",
     "google-map-react": "^1.1.5",
     "map": "^1.0.1",
-    "papaparse": "^5.1.0",
+    "papaparse": "^5.2.0",
     "react": "^16.11.0",
     "react-app-polyfill": "^1.0.0",
     "react-dom": "^16.11.0"
